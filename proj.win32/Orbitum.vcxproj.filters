@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\实体">
+      <UniqueIdentifier>{ee97a171-8436-4fbd-ba1b-ce75e227c776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\场景">
+      <UniqueIdentifier>{eb8cd3d2-2157-45a4-b940-562db9a55fef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\通用函数">
+      <UniqueIdentifier>{29e07c55-d1b2-4bdc-afca-2ec25f5c6697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\配置">
+      <UniqueIdentifier>{db173783-fdbd-40ca-9ed3-062d8c039d71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\实体\主要块">
+      <UniqueIdentifier>{216e9257-1744-4304-9782-21d1c259519e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\实体\浮窗">
+      <UniqueIdentifier>{8265fc85-010b-4aee-83ad-7950bb13a726}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Entity.cpp">
+      <Filter>Classes\实体</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Util.cpp">
+      <Filter>Classes\通用函数</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainScene.cpp">
+      <Filter>Classes\场景</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Block.cpp">
+      <Filter>Classes\实体\主要块</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\FloatBox.cpp">
+      <Filter>Classes\实体\浮窗</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Entity.h">
+      <Filter>Classes\实体</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Config.h">
+      <Filter>Classes\配置</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Util.h">
+      <Filter>Classes\通用函数</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene.h">
+      <Filter>Classes\场景</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Block.h">
+      <Filter>Classes\实体\主要块</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\FloatBox.h">
+      <Filter>Classes\实体\浮窗</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
