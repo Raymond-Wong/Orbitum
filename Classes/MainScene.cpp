@@ -3,6 +3,7 @@
 #include "Config.h"
 #include "FloatBox.h"
 #include "BlockManager.h"
+#include "CircleManager.h"
 
 USING_NS_CC;
 
@@ -32,6 +33,9 @@ bool MainScene::init() {
     BlockManager* blockMgr = BlockManager::create();
     this->addChild(blockMgr, BLOCK_LAYER_PRIORITY);
     //blockMgr->bindPlayer(m_player);
+    // 初始化圆圈管理器
+    CircleManager* circleMgr = CircleManager::create();
+    this->addChild(circleMgr, CIRCLE_LAYER_PRIORITY);
     return true;
 }
 

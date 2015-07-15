@@ -18,7 +18,7 @@ void BlockManager::createBlocks() {
         // 创建怪物对象
         block = Block::create();
         block->bindSprite(Sprite::create(MONSTER_PATH));
-        block->setMaxRadius(maxR / 2 + (maxR / 2 * (i + 1) / LAYER_AMOUNT));
+        block->setMaxRadius((maxR * (i + 1) / LAYER_AMOUNT));
         block->reset();
 
         // 添加怪物
@@ -37,6 +37,7 @@ void BlockManager::update(float delta) {
             block->setScale(block->scaleSmall());
             // 如果怪物移动到屏幕左边
             if (block->getBoundingBox().size.width <= 0.8) {
+                block->setMaxRadius(size.width / 2);
                 block->hide();
             } /*else if (block->isCollideWithPlayer(m_player)) {
                 //m_player->hit();
