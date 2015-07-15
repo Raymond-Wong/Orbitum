@@ -28,6 +28,9 @@
     <Filter Include="Classes\实体\浮窗">
       <UniqueIdentifier>{8265fc85-010b-4aee-83ad-7950bb13a726}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\管理器">
+      <UniqueIdentifier>{dd977c98-e343-458a-a957-aca3fe446584}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\FloatBox.cpp">
       <Filter>Classes\实体\浮窗</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BlockManager.cpp">
+      <Filter>Classes\管理器</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\FloatBox.h">
       <Filter>Classes\实体\浮窗</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BlockManager.h">
+      <Filter>Classes\管理器</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

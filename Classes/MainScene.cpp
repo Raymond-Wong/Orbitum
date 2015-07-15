@@ -2,6 +2,7 @@
 #include "Util.h"
 #include "Config.h"
 #include "FloatBox.h"
+#include "BlockManager.h"
 
 USING_NS_CC;
 
@@ -27,6 +28,10 @@ bool MainScene::init() {
     initBG();
     // 初始化浮动层
     initFloatingLayer();
+    // 初始化方块管理器
+    BlockManager* blockMgr = BlockManager::create();
+    this->addChild(blockMgr, BLOCK_LAYER_PRIORITY);
+    //blockMgr->bindPlayer(m_player);
     return true;
 }
 
