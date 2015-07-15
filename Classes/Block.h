@@ -18,7 +18,14 @@ public:
     void reset();
     bool isAlive();
     bool isCollideWithPlayer(Block* other);
+    Point getNextPos();
+    float scaleSmall();
+    void setMaxRadius(float x);
 private:
+    float maxRadius;
+    Point currentPos;
+    float radius;
+    float size;
     bool m_isAlive;
 };
 
