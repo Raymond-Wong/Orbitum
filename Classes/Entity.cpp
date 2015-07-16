@@ -16,6 +16,6 @@ void Entity::bindSprite(Sprite* s) {
     this->addChild(m_sprite);
 
     auto spriteSize = m_sprite->getContentSize();
-    m_sprite->setPosition(Point(spriteSize.width / 2, spriteSize.height / 2));
+    //m_sprite->setPosition(Point(spriteSize.width / 2, spriteSize.height / 2));
     this->setContentSize(spriteSize);
 }

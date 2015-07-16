@@ -21,6 +21,7 @@ void FloatBox::showBox( const char* widgetName ) {
 void FloatBox::fadeOutFloatingLayer(Ref* target, TouchEventType type) {
     if (type == TouchEventType::TOUCH_EVENT_ENDED) {
         this->floatingLayerUI->setVisible(false);
+        Config::isPause = false;
     }
 }
 

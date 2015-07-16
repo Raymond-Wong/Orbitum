@@ -3,9 +3,10 @@
 
 #include "cocos2d.h"
 #include "Block.h"
+#include "Player.h"
 USING_NS_CC;
 
-#define LAYER_AMOUNT 10
+#define LAYER_AMOUNT 5
 
 class BlockManager : public Node {
 public:
@@ -13,10 +14,10 @@ public:
     virtual bool init();
     virtual void update(float delta);
 
-    void bindPlayer(Block* player);
+    void bindPlayer(Player* player);
 private:
     void createBlocks();
-    Block* m_player;
+    Player* m_player;
     Vector<Block*> m_blockArr;
 };
 

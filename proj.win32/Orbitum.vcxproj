@@ -136,10 +136,14 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Block.cpp" />
     <ClCompile Include="..\Classes\BlockManager.cpp" />
+    <ClCompile Include="..\Classes\Circle.cpp" />
+    <ClCompile Include="..\Classes\CircleManager.cpp" />
+    <ClCompile Include="..\Classes\Config.cpp" />
     <ClCompile Include="..\Classes\Entity.cpp" />
     <ClCompile Include="..\Classes\FloatBox.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\MainScene.cpp" />
+    <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\Util.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -147,11 +151,14 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Block.h" />
     <ClInclude Include="..\Classes\BlockManager.h" />
+    <ClInclude Include="..\Classes\Circle.h" />
+    <ClInclude Include="..\Classes\CircleManager.h" />
     <ClInclude Include="..\Classes\Config.h" />
     <ClInclude Include="..\Classes\Entity.h" />
     <ClInclude Include="..\Classes\FloatBox.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\MainScene.h" />
+    <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\Util.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

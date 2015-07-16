@@ -21,12 +21,14 @@ public:
     Point getNextPos();
     float scaleSmall();
     void setMaxRadius(float x);
-private:
+protected:
+public:
     float maxRadius;
-    Point currentPos;
     float radius;
     float size;
     bool m_isAlive;
+    Point currentPos;
+    
 };
 
 #endif

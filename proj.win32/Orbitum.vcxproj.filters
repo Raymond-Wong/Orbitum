@@ -31,6 +31,15 @@
     <Filter Include="Classes\管理器">
       <UniqueIdentifier>{dd977c98-e343-458a-a957-aca3fe446584}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\实体\圆圈">
+      <UniqueIdentifier>{edef251a-1e22-4c56-b24f-8f587e068375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\管理器\圆圈管理器">
+      <UniqueIdentifier>{d805d2c0-4129-48a6-b69e-24ea43d21f26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\实体\主角">
+      <UniqueIdentifier>{eeb1e449-b9fd-4d41-b481-3b5670567000}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,6 +68,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\BlockManager.cpp">
       <Filter>Classes\管理器</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Circle.cpp">
+      <Filter>Classes\实体\圆圈</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CircleManager.cpp">
+      <Filter>Classes\管理器\圆圈管理器</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Config.cpp">
+      <Filter>Classes\配置</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>Classes\实体\主角</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +112,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BlockManager.h">
       <Filter>Classes\管理器</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Circle.h">
+      <Filter>Classes\实体\圆圈</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CircleManager.h">
+      <Filter>Classes\管理器\圆圈管理器</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>Classes\实体\主角</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
