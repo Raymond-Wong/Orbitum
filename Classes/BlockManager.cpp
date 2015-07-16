@@ -29,6 +29,16 @@ void BlockManager::createBlocks() {
 }
 
 void BlockManager::update(float delta) {
+    if (Config::isPause)
+        return;
+    CCLog("%f, %f", m_player->getPosition().x, m_player->getPosition().y);
+    CCLog("%f, %f", m_player->radius, m_player->maxRadius);
+    CCLog("------");
+    if (!m_player->m_isJumping) {
+        // 更新玩家
+        m_player->setPosition(Util::getMyPoint(m_player->getNextPos()));
+        m_player->setScale(m_player->scaleSmall());
+    }
     for (auto block : this->m_blockArr) {
         // 如果怪物处于激活状态
         if (block->isAlive()) {
@@ -39,10 +49,10 @@ void BlockManager::update(float delta) {
             if (block->getBoundingBox().size.width <= 0.8) {
                 block->setMaxRadius(size.width / 2);
                 block->hide();
-            } /*else if (block->isCollideWithPlayer(m_player)) {
-                //m_player->hit();
+            } else if (block->isCollideWithPlayer(m_player)) {
+                m_player->hit();
                 block->hide();
-            }*/
+            }
         } else {
             // 怪物处于未激活状态
             block->show();
@@ -50,6 +60,6 @@ void BlockManager::update(float delta) {
     }
 }
 
-void BlockManager::bindPlayer(Block* player) {
+void BlockManager::bindPlayer(Player* player) {
     m_player = player;
 }

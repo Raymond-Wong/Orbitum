@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "editor-support/cocostudio/CCSGUIReader.h"
 #include "ui/CocosGUI.h"
+#include "Player.h"
 
 using namespace cocos2d;
 using namespace cocos2d::ui;
@@ -18,6 +19,11 @@ public:
 private:
     void initBG();
     void initFloatingLayer();
+    void initBtnLayer();
+    Widget* btnLayerUI;
+    Player* m_player;
+    void pause(Ref* target, TouchEventType type);
+    void jumpEvent(Ref* target, TouchEventType type);
 };
 
 #endif

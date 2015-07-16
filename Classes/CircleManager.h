@@ -5,7 +5,7 @@
 #include "Circle.h"
 USING_NS_CC;
 
-#define LAYER_AMOUNT 10
+#define LAYER_AMOUNT 5
 
 class CircleManager : public Node {
 public:

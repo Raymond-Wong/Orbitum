@@ -29,13 +29,15 @@ void CircleManager::createCircles() {
 }
 
 void CircleManager::update(float delta) {
+    if (Config::isPause)
+        return;
     for (auto circle : this->m_circleArr) {
         // 如果怪物处于激活状态
         if (circle->isAlive()) {
             auto size = Director::getInstance()->getVisibleSize();
             circle->setScale(circle->scaleSmall());
             // 如果怪物移动到屏幕左边
-            if (circle->getBoundingBox().size.width <= 0.8) {
+            if (circle->getBoundingBox().size.width <= 12) {
                 circle->setMaxRadius(size.width / 2);
                 circle->hide();
             } /*else if (block->isCollideWithPlayer(m_player)) {
