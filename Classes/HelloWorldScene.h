@@ -2,21 +2,33 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+USING_NS_CC;
 
 class HelloWorld : public cocos2d::Layer
 {
 public:
-    // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
+	static HelloWorld* create(PhysicsWorld* world);
+    bool init(PhysicsWorld* world);
+	bool onContactBegan(PhysicsContact& contact);
+	void showParticleFireworks();
+	void touchEvent();
+	void restart(Ref* ref);
 
-    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();  
-    
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
-    
-    // implement the "static create()" method manually
-    CREATE_FUNC(HelloWorld);
+private:
+	HelloWorld();
+	~HelloWorld();
+	PhysicsWorld* m_world;
+	Sprite* m_basketball;
+	PhysicsJointPin* JP;
+	PhysicsJointFixed* JF;
+	Sprite* m_rope;
+	MotionStreak* streak;
+	Sprite* m_cat1;
+	Sprite* m_cat2;
+	Sprite* m_box1;
+	Sprite* m_box2;
+	bool isCut;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

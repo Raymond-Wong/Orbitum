@@ -1,91 +1,200 @@
 #include "HelloWorldScene.h"
-
+using namespace std;
 USING_NS_CC;
 
+HelloWorld::HelloWorld() : m_world(NULL)
+                         , m_basketball(NULL)
+                         
+{
+
+}
+
+HelloWorld::~HelloWorld()
+{
+}
 Scene* HelloWorld::createScene()
 {
-    // 'scene' is an autorelease object
-    auto scene = Scene::create();
-    
-    // 'layer' is an autorelease object
-    auto layer = HelloWorld::create();
+   
+	Scene* scene = Scene::createWithPhysics();
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -150));
+	auto layer = HelloWorld::create(scene->getPhysicsWorld());
+	scene->addChild(layer);
 
-    // add layer as a child to scene
-    scene->addChild(layer);
-
-    // return the scene
     return scene;
 }
 
-// on "init" you need to initialize your instance
-bool HelloWorld::init()
+HelloWorld* HelloWorld::create(PhysicsWorld* world)
 {
-    //////////////////////////////
-    // 1. super init first
+	HelloWorld* pRet = new HelloWorld();
+	if (pRet && pRet->init(world))
+	{
+		return pRet;
+	}
+	pRet = NULL;
+	return NULL;
+}
+
+bool HelloWorld::init(PhysicsWorld* world)
+{
     if ( !Layer::init() )
     {
         return false;
     }
     
+	m_world = world;
+	isCut = false;
+
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    Point origin = Director::getInstance()->getVisibleOrigin();
-
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+	Size winSize = Director::getInstance()->getWinSize();
     
-	closeItem->setPosition(Point(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
+	Node* bound = Node::create();
+	PhysicsBody* boundBody = PhysicsBody::createEdgeBox(winSize);
+	boundBody->setDynamic(false);
+	bound->setPhysicsBody(boundBody);
+	bound->setPosition(winSize.width / 2, winSize.height / 2);
+	bound->getPhysicsBody()->setContactTestBitmask(0xFFFFFFFF);
+	addChild(bound);
 
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Point::ZERO);
-    this->addChild(menu, 1);
+	Node* ground = Node::create();
+	ground->setPhysicsBody(PhysicsBody::createEdgeSegment(Vec2(0,300), Vec2(winSize.width, 300)));
+	ground->getPhysicsBody()->setContactTestBitmask(0xFFFFFFFF);
+	ground->getPhysicsBody()->setDynamic(false);
+	addChild(ground);
 
-    /////////////////////////////
-    // 3. add your codes below...
+	m_rope = Sprite::create("rope.png");
+	m_rope->setPhysicsBody(PhysicsBody::createBox(m_rope->getContentSize()));
+	m_rope->getPhysicsBody()->setDynamic(true);
+	m_rope->setPosition(Point(winSize.width / 2 - m_rope->getContentSize().width / 2 - 5, winSize.height - m_rope->getContentSize().height / 2 - 10));
+	addChild(m_rope);
 
-    // add a label shows "Hello World"
-    // create and initialize a label
-    
-    auto label = LabelTTF::create("Hello World", "Arial", 24);
-    
-    // position the label on the center of the screen
-    label->setPosition(Point(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
+	Node* ropeBase = Node::create();
+	ropeBase->setPhysicsBody(PhysicsBody::createEdgeSegment(Vec2(0, 0), Vec2(0, 0)));
+	ropeBase->getPhysicsBody()->setDynamic(false);
+	ropeBase->setPosition(Point(winSize.width / 2, winSize.height - m_rope->getContentSize().height / 2 - 10));
+	addChild(ropeBase);
 
-    // add the label as a child to this layer
-    this->addChild(label, 1);
+	JP = PhysicsJointPin::construct(m_rope->getPhysicsBody(), ropeBase->getPhysicsBody(), ropeBase->getPosition());
+	m_world->addJoint(JP);
 
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
+	m_basketball = Sprite::create("basketball.png");
+	m_basketball->setPhysicsBody(PhysicsBody::createBox(m_basketball->getContentSize()));
+	m_basketball->getPhysicsBody()->setContactTestBitmask(0xFFFFFFFF);
+	m_basketball->setPosition(winSize.width / 2 - m_rope->getContentSize().width - 5 - m_basketball->getContentSize().width / 2,
+		                      winSize.height - m_rope->getContentSize().height / 2 - 10);
+	m_basketball->getPhysicsBody()->setDynamic(true);
+	m_basketball->setTag(1);
+	addChild(m_basketball);
 
-    // position the sprite on the center of the screen
-    sprite->setPosition(Point(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+	JF = PhysicsJointFixed::construct(m_rope->getPhysicsBody(), m_basketball->getPhysicsBody(), m_basketball->getPosition());
+	m_world->addJoint(JF);
 
-    // add the sprite as a child to this layer
-    this->addChild(sprite, 0);
-    
+	m_box1 = Sprite::create("box.png");
+	m_box1->setPhysicsBody(PhysicsBody::createBox(m_box1->getContentSize()));
+	m_box1->getPhysicsBody()->setContactTestBitmask(0xFFFFFFFF);
+	m_box1->setPosition(300, 300 + m_box1->getContentSize().height / 2);
+	m_box1->getPhysicsBody()->setDynamic(true);
+	m_box1->setTag(2);
+	addChild(m_box1);
+
+	m_box2 = Sprite::create("box.png");
+	m_box2->setPhysicsBody(PhysicsBody::createBox(m_box2->getContentSize()));
+	m_box2->getPhysicsBody()->setContactTestBitmask(0xFFFFFFFF);
+	m_box2->setPosition(winSize.width - 300, 300 + m_box2->getContentSize().height / 2);
+	m_box2->getPhysicsBody()->setDynamic(true);
+	m_box2->setTag(2);
+	addChild(m_box2);
+
+	m_cat1 = Sprite::create("man.png");
+	m_cat1->setPhysicsBody(PhysicsBody::createBox(m_cat1->getContentSize()));
+	m_cat1->getPhysicsBody()->setContactTestBitmask(0xFFFFFFFF);
+	m_cat1->setPosition(300 - m_box1->getContentSize().width / 2 - m_cat1->getContentSize().width / 2 - 15, 300 + m_cat1->getContentSize().height / 2);
+	m_cat1->getPhysicsBody()->setDynamic(true);
+	m_cat1->setTag(3);
+	addChild(m_cat1);
+
+	m_cat2 = Sprite::create("man.png");
+	m_cat2->setPhysicsBody(PhysicsBody::createBox(m_cat2->getContentSize()));
+	m_cat2->getPhysicsBody()->setContactTestBitmask(0xFFFFFFFF);
+	m_cat2->setPosition(winSize.width - 300 + m_box2->getContentSize().width / 2 + m_cat2->getContentSize().width / 2 + 15, 300 + m_cat2->getContentSize().height / 2);
+	m_cat2->getPhysicsBody()->setDynamic(true);
+	m_cat2->setTag(3);
+	addChild(m_cat2);
+
+	touchEvent();
+
+	CCLabelTTF *label = CCLabelTTF::create("Restart", "Arial", 20);
+	auto restart = CCMenuItemLabel::create(label, CC_CALLBACK_1(HelloWorld::restart, this));
+	restart->setPosition(Point(50, winSize.height - 30));
+	auto menu = Menu::create(restart, NULL);
+	menu->setPosition(Vec2::ZERO);
+	this->addChild(menu);
+
+	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegan, this);
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+
     return true;
 }
 
-
-void HelloWorld::menuCloseCallback(Ref* pSender)
+void HelloWorld::touchEvent()
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
-	MessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
-    return;
-#endif
+	streak = MotionStreak::create(0.5f, 10, 30, Color3B::WHITE, "flash.png");
+	this->addChild(streak, 2);
 
-    Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = [&](Touch* touch, Event* event){
+		return true;
+	};
+	listener->onTouchMoved = [&](Touch* touch, Event* event){
+		auto touch_pre = touch->getPreviousLocation();
+		auto touch_pos = touch->getLocation();
+		streak->setPosition(touch_pos);
+		if (!isCut)
+		{
+			if (m_rope->getBoundingBox().containsPoint(touch->getLocation()))
+			{
+				isCut = true;
+				m_world->removeJoint(JF);
+			}
+		}
+	};
+	Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 }
+
+bool HelloWorld::onContactBegan(PhysicsContact& contact)
+{
+	int TagA = contact.getShapeA()->getBody()->getNode()->getTag();
+	int TagB = contact.getShapeB()->getBody()->getNode()->getTag();
+
+	if (TagA == 1 && TagB == 3) {
+		contact.getShapeB()->getBody()->getNode()->getParent()->removeChild(contact.getShapeB()->getBody()->getNode());
+		showParticleFireworks();
+	}
+	else if (TagA == 3 && TagB == 1) {
+		contact.getShapeA()->getBody()->getNode()->getParent()->removeChild(contact.getShapeA()->getBody()->getNode());
+		showParticleFireworks();
+	}
+
+	return true;
+}
+
+void HelloWorld::showParticleFireworks()
+{
+	Size winSize = Director::getInstance()->getWinSize();
+	ParticleFireworks* fireworks = ParticleFireworks::create();
+	fireworks->setPosition(winSize.width / 2, winSize.height / 2);
+	addChild(fireworks);
+}
+
+void HelloWorld::restart(Ref* ref)
+{
+	auto scene = HelloWorld::createScene();
+	Director::getInstance()->replaceScene(scene);
+}
+
+
+
+
+
+
